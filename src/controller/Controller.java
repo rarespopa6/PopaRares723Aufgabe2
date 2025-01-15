@@ -5,6 +5,7 @@ import model.Verein;
 import repo.SpielerRepo;
 import repo.VereinRepo;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -78,5 +79,27 @@ public class Controller {
                 .map(Verein::getSpielerList)
                 .findFirst()
                 .orElseThrow();
+    }
+
+    public List<Spieler> getSortedSpielerOfVereinByMarktwert(String name, int sortMethod) {
+        if (sortMethod == 0) { // ASC
+            return vereinRepo.getAllVereine().stream()
+                    .filter(verein -> verein.getName().equals(name))
+                    .map(Verein::getSpielerList)
+                    .findFirst()
+                    .orElseThrow()
+                    .stream()
+                    .sorted(Comparator.comparingInt(Spieler::getMarktWert))
+                    .toList();
+        } else {
+            return vereinRepo.getAllVereine().stream()
+                    .filter(verein -> verein.getName().equals(name))
+                    .map(Verein::getSpielerList)
+                    .findFirst()
+                    .orElseThrow()
+                    .stream()
+                    .sorted((s1, s2) -> s2.getMarktWert() - s1.getMarktWert())
+                    .toList();
+        }
     }
 }

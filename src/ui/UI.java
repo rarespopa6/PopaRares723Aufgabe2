@@ -11,14 +11,13 @@ public class UI {
     private final Scanner scanner = new Scanner(System.in);
 
     /**
-     * This method starts the user interface of the application.
+     * Function that starts the user interface of the application.
      * and handels all the user input.
      */
     public void run() {
         while (true) {
             System.out.println("1. Spieler Operations");
-            System.out.println("2. Character Operations");
-            System.out.println("3. Filter, Adding and Sorting Methods");
+            System.out.println("2. Verein Operations");
             System.out.println("0. Exit");
 
             int option;
@@ -37,10 +36,8 @@ public class UI {
                         break;
                     case 2: vereinOperations();
                         break;
-//                    case 3: displayFilterSortingFunctions();
-//                        break;
-//                    default: System.out.println("Invalid option, try again");
-//                        break;
+                    default: System.out.println("Invalid option, try again");
+                        break;
                 }
             } catch (IllegalArgumentException e) {
                 System.out.println("Invalid option");
@@ -156,6 +153,7 @@ public class UI {
             System.out.println("6. Add Spieler to Verein");
             System.out.println("7. Filter Verein by City");
             System.out.println("8. Players in Verein");
+            System.out.println("9. Sorted Spieler by MarktWert im Verein");
             System.out.println("0. Back");
 
             int option = scanner.nextInt();
@@ -182,10 +180,23 @@ public class UI {
                     break;
                 case 8: playersInVerein();
                     break;
+                case 9: sortedSpielerByMarktWert();
+                    break;
                 default: System.out.println("Invalid option, try again");
                     break;
             }
         }
+    }
+
+    private void sortedSpielerByMarktWert() {
+        System.out.println("Enter the Verein Name: ");
+        String vereinName = scanner.nextLine();
+
+        System.out.println("Enter the sort method (1 ASC / 2 DESC): ");
+        int sortMethod = scanner.nextInt();
+        scanner.nextLine();
+
+        controller.getSortedSpielerOfVereinByMarktwert(vereinName, sortMethod).forEach(System.out::println);
     }
 
     private void playersInVerein() {
