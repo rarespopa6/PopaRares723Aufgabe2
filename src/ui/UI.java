@@ -2,7 +2,6 @@ package ui;
 
 import controller.Controller;
 import model.Spieler;
-import repo.SpielerRepo;
 
 import java.util.Scanner;
 
