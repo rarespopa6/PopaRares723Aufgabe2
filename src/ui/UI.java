@@ -35,8 +35,8 @@ public class UI {
                 switch (option) {
                     case 1: spielerOperations();
                         break;
-//                    case 2: displayCharacterOperations();
-//                        break;
+                    case 2: vereinOperations();
+                        break;
 //                    case 3: displayFilterSortingFunctions();
 //                        break;
 //                    default: System.out.println("Invalid option, try again");
@@ -143,6 +143,105 @@ public class UI {
             System.out.println("Spieler mit id " + id + " geloscht!");
         } else {
             System.out.println("Spieler mit id " + id + " nicht gefunden!");
+        }
+    }
+
+    private void vereinOperations() {
+        while (true) {
+            System.out.println("1. Add Verein");
+            System.out.println("2. Update Verein");
+            System.out.println("3. Delete Verein");
+            System.out.println("4. Get All Verein");
+            System.out.println("5. Get Verein by ID");
+            System.out.println("6. Add Spieler to Verein");
+            System.out.println("0. Back");
+
+            int option = scanner.nextInt();
+            scanner.nextLine();
+
+            if(option == 0) {
+                break;
+            }
+
+            switch (option) {
+                case 1: addVerein();
+                    break;
+                case 2: updateVerein();
+                    break;
+                case 3: deleteVerein();
+                    break;
+                case 4: getAllVerein();
+                    break;
+                case 5: getVereinById();
+                    break;
+                case 6: addSpielerToVerein();
+                    break;
+                default: System.out.println("Invalid option, try again");
+                    break;
+            }
+        }
+    }
+
+    private void addVerein(){
+        System.out.print("Enter the name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter the city: ");
+        String city = scanner.nextLine();
+
+        int id = controller.addVerein(name, city, null);
+        System.out.println("Verein with id " + id + " added!");
+    }
+
+    private void getVereinById() {
+        System.out.print("Enter the id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println(controller.getVerein(id));
+    }
+
+    private void getAllVerein() {
+        controller.getAllVereine().forEach(System.out::println);
+    }
+
+    private void updateVerein() {
+        System.out.print("Enter the id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter the name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter the city: ");
+        String city = scanner.nextLine();
+
+        controller.updateVerein(id, name, city, null);
+        System.out.println("Verein with id " + id + " updated!");
+    }
+
+    private void deleteVerein() {
+        System.out.print("Enter the id: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        if (controller.deleteVerein(id)) {
+            System.out.println("Verein with id " + id + " deleted!");
+        } else {
+            System.out.println("Verein with id " + id + " not found!");
+        }
+    }
+
+    private void addSpielerToVerein() {
+        System.out.print("Enter the Verein id: ");
+        int vereinId = scanner.nextInt();
+        scanner.nextLine();
+        System.out.print("Enter the Spieler id: ");
+        int spielerId = scanner.nextInt();
+        scanner.nextLine();
+
+        try {
+            controller.addSpielerToVerein(vereinId, spielerId);
+            System.out.println("Spieler added to Verein!");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
 
