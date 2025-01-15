@@ -154,6 +154,7 @@ public class UI {
             System.out.println("4. Get All Verein");
             System.out.println("5. Get Verein by ID");
             System.out.println("6. Add Spieler to Verein");
+            System.out.println("7. Filter Verein by City");
             System.out.println("0. Back");
 
             int option = scanner.nextInt();
@@ -175,6 +176,8 @@ public class UI {
                 case 5: getVereinById();
                     break;
                 case 6: addSpielerToVerein();
+                    break;
+                case 7: filterVereinByCity();
                     break;
                 default: System.out.println("Invalid option, try again");
                     break;
@@ -243,6 +246,12 @@ public class UI {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private void filterVereinByCity() {
+        System.out.print("Enter the city: ");
+        String city = scanner.nextLine();
+        controller.filterVereinByCity(city).forEach(System.out::println);
     }
 
 }

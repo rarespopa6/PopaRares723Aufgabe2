@@ -6,6 +6,7 @@ import repo.SpielerRepo;
 import repo.VereinRepo;
 
 import java.util.List;
+import java.util.Map;
 
 public class Controller {
     private SpielerRepo spielerRepo = new SpielerRepo();
@@ -63,5 +64,11 @@ public class Controller {
         }
         verein.getSpielerList().add(spieler);
         vereinRepo.updateVerein(vereinId, verein);
+    }
+
+    public List<Verein> filterVereinByCity(String city) {
+        return vereinRepo.getAllVereine().stream()
+                .filter(verein -> verein.getStadt().equals(city))
+                .toList();
     }
 }
