@@ -155,6 +155,7 @@ public class UI {
             System.out.println("5. Get Verein by ID");
             System.out.println("6. Add Spieler to Verein");
             System.out.println("7. Filter Verein by City");
+            System.out.println("8. Players in Verein");
             System.out.println("0. Back");
 
             int option = scanner.nextInt();
@@ -179,10 +180,19 @@ public class UI {
                     break;
                 case 7: filterVereinByCity();
                     break;
+                case 8: playersInVerein();
+                    break;
                 default: System.out.println("Invalid option, try again");
                     break;
             }
         }
+    }
+
+    private void playersInVerein() {
+        System.out.print("Enter the Verein Name: ");
+        String vereinName = scanner.nextLine();
+
+        controller.getSpielerByVereinName(vereinName).forEach(System.out::println);
     }
 
     private void addVerein(){

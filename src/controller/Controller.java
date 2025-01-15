@@ -71,4 +71,12 @@ public class Controller {
                 .filter(verein -> verein.getStadt().equals(city))
                 .toList();
     }
+
+    public List<Spieler> getSpielerByVereinName(String name) {
+        return vereinRepo.getAllVereine().stream()
+                .filter(verein -> verein.getName().equals(name))
+                .map(Verein::getSpielerList)
+                .findFirst()
+                .orElseThrow();
+    }
 }
